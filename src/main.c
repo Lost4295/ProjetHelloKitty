@@ -207,6 +207,7 @@ int main(int argc, char *argv[])
 
     SDL_Rect rect[9];
     SDL_Rect title;
+    SDL_Rect wtitle;
     SDL_Rect winner;
     for (i = 0; i < 9; i++)
     {
@@ -226,10 +227,14 @@ int main(int argc, char *argv[])
     title.h = 70;
     title.x = 50;
     title.y = 50;
-    winner.w = 90;
-    winner.h = 90;
-    winner.x = 120;
-    winner.y = 50;
+    winner.w = 190;
+    winner.h = 190;
+    winner.x = 320;
+    winner.y = 250;
+    wtitle.w = 270;
+    wtitle.h = 270;
+    wtitle.x = 50;
+    wtitle.y = 50;
     SDL_Color grey = {100, 100, 100, 20};
     SDL_Color white = {255, 255, 255, 255};
     SDL_Delay(100);
@@ -300,9 +305,10 @@ int main(int argc, char *argv[])
         printBoard(board);
         if (checkWin(board, 1) == 1)
         {
+            SDL_RenderClear(renderer);
             SDL_Texture *win = loadImage("winner.jpeg", renderer);
             SDL_Texture *img = loadImage("kitty.jpg", renderer);
-            SDL_RenderCopy(renderer, win, NULL, &title);
+            SDL_RenderCopy(renderer, win, NULL, &wtitle);
             SDL_RenderCopy(renderer, img, NULL, &winner);
             SDL_DestroyTexture(win);
             SDL_DestroyTexture(img);
@@ -312,9 +318,10 @@ int main(int argc, char *argv[])
         }
         else if (checkWin(board, 2) == 1)
         {
+            SDL_RenderClear(renderer);
             SDL_Texture *win = loadImage("winner.jpeg", renderer);
             SDL_Texture *img = loadImage("kuro.jpg", renderer);
-            SDL_RenderCopy(renderer, win, NULL, &title);
+            SDL_RenderCopy(renderer, win, NULL, &wtitle);
             SDL_RenderCopy(renderer, img, NULL, &winner);
             SDL_DestroyTexture(win);
             SDL_DestroyTexture(img);
@@ -324,8 +331,9 @@ int main(int argc, char *argv[])
         }
         else if (checkfill(filledRect))
         {
+            SDL_RenderClear(renderer);
             SDL_Texture *win = loadImage("draw.jpeg", renderer);
-            SDL_RenderCopy(renderer, win, NULL, &title);
+            SDL_RenderCopy(renderer, win, NULL, &wtitle);
             SDL_DestroyTexture(win);
             SDL_RenderPresent(renderer);
             SDL_Delay(5000);
